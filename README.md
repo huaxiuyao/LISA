@@ -48,37 +48,39 @@ LISA leads to a smaller worst-group error.
 
 ## Datasets and Scripts
 
-### Subpopulation shifts and MetaDataset
+### Subpopulation shifts and MetaShifts
 To run the code, you need to first enter the directory: `cd subpopulation_shifts`. Then change the `root_dir` variable in `./data/data.py` if you need to put the dataset elsewhere other than `./data/`. 
 
 For subpopulation shifts problems, the datasets are listed as follows:
 
 
-#### MetaDataset
-The dataset can be downloaded [here]. You should put it under the directory `data`. The running scripts for 4 dataset with different distances are as follows:
+#### MetaShifts
+The dataset can be downloaded [[here]](). You should put it under the directory `data`. The running scripts for 4 dataset with different distances are as follows:
 ```
-python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 1 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
-python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 2 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
 python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 3 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
-python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 4 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
 ```
 
 #### CMNIST
 This dataset is constructed from MNIST. It will be automatically downloaded when running the following script:
-`python run_expt.py -s confounder -d CMNIST -t 0-4 -c isred --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300  --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_ratio 0.5`
+```
+python run_expt.py -s confounder -d CMNIST -t 0-4 -c isred --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300  --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_ratio 0.5`
+```
 
 #### CelebA
 This dataset can be downloaded via the link in the repo [group_DRO](https://github.com/kohpangwei/group_DRO). 
 
 The command to run LISA on CelebA is:
-`python run_expt.py -s confounder -d CelebA -t Blond_Hair -c Male --lr 0.0001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 50 --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_alpha 2 --mix_ratio 0.5 --cut_mix`
+```
+python run_expt.py -s confounder -d CelebA -t Blond_Hair -c Male --lr 0.0001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 50 --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_alpha 2 --mix_ratio 0.5 --cut_mix`
+```
 
 #### Waterbirds
 This dataset can be downloaded via the link in the repo [group_DRO](https://github.com/kohpangwei/group_DRO). 
 
 The command to run LISA on Waterbirds is:
-`python run_expt.py -s confounder -d CUB -t waterbird_complete95 -c forest2water2 --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300  --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_alpha 2 --mix_ratio 0.5`
-
+```
+python run_expt.py -s confounder -d CUB -t waterbird_complete95 -c forest2water2 --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300  --gamma 0.1 --generalization_adjustment 0 --lisa_mix_up --mix_alpha 2 --mix_ratio 0.5`
+```
 
 
 
@@ -88,20 +90,29 @@ To run the code, you need to first enter the directory: `cd domain_shifts`.
 Our implementation and the processing of the datasets are based on the repo [fish](https://github.com/YugeTen/fish). The datasets will be automatically downloaded when running the scripts provided below. 
 
 #### Camelyon17
-`python main.py --dataset camelyon --algorithm lisa --data-dir /data/wangyu/Cameyon17 --group_by_label`
+```
+python main.py --dataset camelyon --algorithm lisa --data-dir /data/wangyu/Cameyon17 --group_by_label`
+```
 
 #### FMoW
-`python main.py --dataset fmow --algorithm lisa --data-dir /data/wangyu/FMoW --group_by_label`
+```
+python main.py --dataset fmow --algorithm lisa --data-dir /data/wangyu/FMoW --group_by_label`
+```
 
 #### RxRx1
-`python main.py --dataset rxrx --algorithm lisa --data-dir /data/wangyu/RxRx1 --group_by_label`
+```
+python main.py --dataset rxrx --algorithm lisa --data-dir /data/wangyu/RxRx1 --group_by_label`
+```
 
 #### Amazon
-`python main.py --dataset amazon --algorithm lisa --data-dir /data/wangyu/Amazon --group_by_label`
+```
+python main.py --dataset amazon --algorithm lisa --data-dir /data/wangyu/Amazon --group_by_label`
+```
 
 #### CivilComments
-`python main.py --dataset civil --algorithm lisa --data-dir /data/wangyu/CivilComments --mix_unit group`
-
+```
+python main.py --dataset civil --algorithm lisa --data-dir /data/wangyu/CivilComments --mix_unit group`
+```
 
 
 
