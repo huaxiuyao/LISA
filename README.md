@@ -55,7 +55,7 @@ For subpopulation shifts problems, the datasets are listed as follows:
 
 
 #### MetaShifts
-The dataset can be downloaded [[here]](). You should put it under the directory `data`. The running scripts for 4 dataset with different distances are as follows:
+The dataset can be downloaded [[here]](https://drive.google.com/file/d/1Fr2HxUOL3_QUDHU5B3MMH7dgFu_u_gJ_/view?usp=sharing). You should put it under the directory `data`. The running scripts for 4 dataset with different distances are as follows:
 ```
 python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 1 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
 python run_expt.py -s confounder -d MetaDatasetCatDog -t cat -c background --lr 0.001 --batch_size 16 --weight_decay 0.0001 --model resnet50 --n_epochs 300 --gamma 0.1 --dog_group 2 --ratio 1.0 --lisa_mix_up --mix_alpha 2 --cut_mix --group_by_label
