@@ -268,10 +268,6 @@ class GeneralWilds_Batched_Dataset(Dataset):
         else:
             self.domains = domains
 
-        if args.within_group:
-            assert not args.group_by_label
-            self.domains = self.domains * 2 + self.y_array
-
         self.num_envs = len(self.domains.unique())
         self.domain_indices = [torch.nonzero(self.domains == loc).squeeze(-1) for loc in self.domains.unique()]
         self.domain2idx = {loc.item(): i for i, loc in enumerate(self.domains.unique())}

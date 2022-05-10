@@ -94,8 +94,6 @@ args.experiment = f"{args.dataset}_{args.algorithm}_{args.seed}" \
     if args.experiment == '.' else args.experiment
 if args.dataset == 'amazon' and args.model == 'distilbert':
     args.experiment += '_distillbert'
-if args.mix_unit != 'group':
-    args.experiment += '_cross'
 directory_name = '../experiments/{}'.format(args.experiment)
 if not os.path.exists(directory_name):
     os.makedirs(directory_name)

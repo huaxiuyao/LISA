@@ -108,13 +108,6 @@ class Model(nn.Module):
             if device.type == "cuda" else {}
 
         if args.reweight_groups:
-            print("reweighting groups...")
-            # if args.upweight_factor is None:
-            #     print(f"upweight groups according to group number")
-            #     unique_domains, counts = np.unique(train_sets.domains, return_counts=True)
-            #     group_weights = 1 / counts
-            #     weights = group_weights[train_sets.domains]
-            # else:
             print(f"upweighting wrong groups by factor {args.upweight_factor}")
             assert args.group_by_wrong
             assert train_sets.num_envs == 2

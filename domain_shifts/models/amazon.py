@@ -6,10 +6,11 @@ from torch import nn
 from torch.utils.data import DataLoader
 from transformers import BertForSequenceClassification
 from transformers import BertTokenizerFast
-from transformers import logging
+from transformers import DistilBertTokenizerFast
 from wilds.common.data_loaders import get_eval_loader
 from wilds.datasets.amazon_dataset import AmazonDataset
 from .bert.bert import BertFeaturizer
+from .bert.distilbert import DistilBertFeaturizer
 
 from .datasets import GeneralWilds_Batched_Dataset
 
@@ -18,9 +19,12 @@ from .datasets import GeneralWilds_Batched_Dataset
 MAX_TOKEN_LENGTH = 512
 NUM_CLASSES = 5
 
-def initialize_bert_transform():
+def initialize_bert_transform(args):
     """Adapted from the Wilds library, available at: https://github.com/p-lambda/wilds"""
-    tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+    if args.model == 'bert':
+        tokenizer = BertTokenizerFast.from_pretrained('bert-base-uncased')
+    else:
+        tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
     def transform(text):
         tokens = tokenizer(
             text,
@@ -28,11 +32,17 @@ def initialize_bert_transform():
             truncation=True,
             max_length=MAX_TOKEN_LENGTH,
             return_tensors='pt')
-        x = torch.stack(
-            (tokens['input_ids'],
-             tokens['attention_mask'],
-             tokens['token_type_ids']),
-            dim=2)
+        if args.model == 'bert':
+            x = torch.stack(
+                (tokens['input_ids'],
+                 tokens['attention_mask'],
+                 tokens['token_type_ids']),
+                dim=2)
+        else:
+            x = torch.stack(
+                (tokens['input_ids'],
+                 tokens['attention_mask']),
+                dim=2)
         x = torch.squeeze(x, dim=0) # First shape dim is always 1
         return x
     return transform
@@ -59,11 +69,12 @@ class Model(nn.Module):
     def __init__(self, args, weights):
         super(Model, self).__init__()
         self.num_classes = NUM_CLASSES
-        # self.model = BertClassifier.from_pretrained(
-        #     'bert-base-uncased',
-        #     num_labels=5,
-        # )
-        featurizer = BertFeaturizer.from_pretrained("bert-base-uncased")
+        if args.model == 'bert':
+            featurizer = BertFeaturizer.from_pretrained("bert-base-uncased")
+        elif args.model == 'distilbert':
+            featurizer = DistilBertFeaturizer.from_pretrained("distilbert-base-uncased")
+        else:
+            raise NotImplementedError
         classifier = nn.Linear(featurizer.d_out, 5)
         self.model = nn.Sequential(featurizer, classifier)
         if weights is not None:
@@ -76,7 +87,7 @@ class Model(nn.Module):
     def getDataLoaders(args, device):
         dataset = AmazonDataset(root_dir=args.data_dir, download=True)
         # get all train data
-        transform = initialize_bert_transform()
+        transform = initialize_bert_transform(args)
         train_data = dataset.get_subset('train', transform=transform)
         # separate into subsets by distribution
         train_sets = GeneralWilds_Batched_Dataset(args, train_data, args.batch_size, domain_idx=0)
