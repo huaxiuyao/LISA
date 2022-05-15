@@ -4,10 +4,10 @@ This code implements the LISA algorithm.
 
 If you find this repository useful in your research, please cite the following paper:
 ```
-@article{yao2022improving,
+@inproceedings{yao2022improving,
   title={Improving Out-of-Distribution Robustness via Selective Augmentation},
   author={Yao, Huaxiu and Wang, Yu and Li, Sai and Zhang, Linjun and Liang, Weixin and Zou, James and Finn, Chelsea},
-  journal={Proceeding of the Thirty-ninth International Conference on Machine Learning},
+  booktitle={Proceeding of the Thirty-ninth International Conference on Machine Learning},
   year={2022}
 }
 ```
