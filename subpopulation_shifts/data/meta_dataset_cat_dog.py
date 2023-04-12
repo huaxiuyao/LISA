@@ -22,10 +22,7 @@ class MetaDatasetCatDog(ConfounderDataset):
                  mix_alpha=2,
                  mix_unit='group',
                  mix_type=1,
-                 mix_freq='batch',
-                 mix_extent=None,
-                 group_id=None,
-                 dataset=None):
+                 group_id=None):
         self.args = args
         self.mix_up = mix_up
         self.mix_alpha = mix_alpha

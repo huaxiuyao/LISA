@@ -189,10 +189,10 @@ def run_epoch_mix_every_batch(epoch, model, optimizer, loader, loss_computer, lo
 
         for i in selected_data_iter_idxes:
             try:
-                tmp_x, tmp_y, tmp_g, tmp_y_onehot, _ = data_iter[i].next()
+                tmp_x, tmp_y, tmp_g, tmp_y_onehot, _ = next(data_iter[i])
             except:
                 data_iter[i] = iter(loader[list(loader.keys())[i]])
-                tmp_x, tmp_y, tmp_g, tmp_y_onehot, _ = data_iter[i].next()
+                tmp_x, tmp_y, tmp_g, tmp_y_onehot, _ = next(data_iter[i])
 
             x.append(tmp_x)
             y.append(tmp_y)

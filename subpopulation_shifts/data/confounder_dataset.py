@@ -35,15 +35,7 @@ class ConfounderDataset(Dataset):
 
             assert not isinstance(x, list)
         else:
-            if not self.mix_array[idx]:
-                x = self.get_image(idx)
-            else:
-                idx_1, idx_2 = self.mix_idx_array[idx]
-                x1, x2 = self.get_image(idx_1), self.get_image(idx_2)
-
-                l = self.mix_weight_array[idx]
-
-                x = l * x1 + (1-l) * x2
+            x = self.get_image(idx)
 
         if self.mix_up:
             y_onehot = self.y_array_onehot[idx]

@@ -21,8 +21,7 @@ class CUBDataset(ConfounderDataset):
                  augment_data=False,
                  model_type=None,
                  mix_up=False,
-                 group_id=None,
-                 dataset=None):
+                 group_id=None):
         self.args = args
         self.mix_up = mix_up
         self.root_dir = root_dir
